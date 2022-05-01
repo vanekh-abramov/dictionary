@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 50vh;
+  .app_bar {
+    justify-content: center;
+    align-items: center;
+    position: static !important;
+    min-height: 100px;
+    a {
+      color: rgb(185, 185, 185);
+      text-decoration: none;
+    }
+    span {
+      color: red;
+    }
+  }
+}

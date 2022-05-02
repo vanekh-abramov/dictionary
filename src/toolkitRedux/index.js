@@ -8,8 +8,3 @@ const rootReducer = combineReducers({
 export const store = configureStore({
   reducer: rootReducer
 })
-// export default configureStore({
-//   reducer: {
-//     todos: todoReducer
-//   }
-// })

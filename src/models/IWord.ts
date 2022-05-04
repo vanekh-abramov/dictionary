@@ -13,7 +13,9 @@ interface IDefinitions {
 
 interface IMeanings {
   partOfSpeech: string,
-  definitions: IDefinitions[]
+  definitions: IDefinitions[],
+  synonyms: string[],
+  antonyms: string[]
 }
 
 interface ILicense {

@@ -1,5 +1,5 @@
 import { Box, Link, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 import { ERROR_ROUTE } from '../../constants/routerLinks'
@@ -12,7 +12,7 @@ type wordParams = {
   word: string | undefined;
 };
 
-const Result = () => {
+const Result: FC = () => {
   const { data, status, error } = useAppSelector((state) => state.data)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -238,9 +238,75 @@ const Result = () => {
         </Typography>
         {myWord.meanings?.map((el) => (
           <div key={uuidv4()}>
+            {el.synonyms?.map((el) => (
+              <Typography
+                key={uuidv4()}
+                sx={{
+                  bgcolor: '#edeaea',
+                  borderRadius: '0.5rem',
+                  padding: '0.5rem',
+                  fontWeight: 500,
+                  color: '#d31919'
+                }}
+              >
+                {el}
+              </Typography>
+            ))}
             {el.definitions?.map((el) => (
               <div key={uuidv4()}>
                 {el.synonyms?.map((el) => (
+                  <Typography
+                    key={uuidv4()}
+                    sx={{
+                      bgcolor: '#edeaea',
+                      borderRadius: '0.5rem',
+                      padding: '0.5rem',
+                      fontWeight: 500,
+                      color: '#d31919'
+                    }}
+                  >
+                    {el}
+                  </Typography>
+                ))}
+              </div>
+            ))}
+          </div>
+        ))}
+      </Box>
+      <Box
+        key={uuidv4()}
+        sx={{
+          bgcolor: 'background.paper',
+          marginTop: '1rem',
+          boxShadow: 1,
+          borderRadius: 2,
+          p: 2,
+          minWidth: '50vw',
+          maxWidth: '1440px'
+        }}
+      >
+        <Typography key={uuidv4()} variant="h4" align="center" paragraph={true}>
+          Antonyms
+        </Typography>
+        {myWord.meanings?.map((el) => (
+          <div key={uuidv4()}>
+            {el.antonyms?.map((el) => (
+              <Typography
+                key={uuidv4()}
+                sx={{
+                  bgcolor: '#edeaea',
+                  borderRadius: '0.5rem',
+                  padding: '0.5rem',
+                  fontWeight: 500,
+                  color: '#d31919'
+                }}
+              >
+                {el}
+              </Typography>
+            ))}
+            {el.definitions?.map((el) => (
+              <div key={uuidv4()}>
+                {el.antonyms?.map((el) => (
                   <Typography
                     key={uuidv4()}
                     sx={{

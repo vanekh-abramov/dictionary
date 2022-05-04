@@ -21,6 +21,7 @@ export const WordSlice = createSlice({
   extraReducers: {
     [fetchDictionary.pending.type]: (state) => {
       state.status = true
+      state.error = ''
     },
     [fetchDictionary.fulfilled.type]: (state, action: PayloadAction<IWord[]>) => {
       state.status = false

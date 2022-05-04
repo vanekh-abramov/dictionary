@@ -23,9 +23,9 @@ const Result = () => {
     dispatch(fetchDictionary(word))
   }, [])
 
-  if (error) {
-    navigate(ERROR_ROUTE)
-  }
+  useEffect(() => {
+    if (error) navigate(ERROR_ROUTE)
+  })
 
   return (
     <div className={s.container}>

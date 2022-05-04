@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { publicRoutes } from '../routes'
+import { publicRoutes } from '../routes.js'
 import { v4 as uuidv4 } from 'uuid'
 
 const AppRouter = () => {

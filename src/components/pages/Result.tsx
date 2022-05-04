@@ -108,37 +108,39 @@ const Result = () => {
           Phonetics
         </Typography>
         {myWord.phonetics?.map((el) => (
-          <Box key={uuidv4()}>
-            {el.audio && (
-              <Typography
-                key={uuidv4()}
-                sx={{
-                  bgcolor: '#edeaea',
-                  borderRadius: '0.5rem',
-                  padding: '0.5rem'
-                }}
-              >
-                <audio key={uuidv4()} controls src={el.audio}>
-                  Your browser does not support the
-                  <code key={uuidv4()}>audio</code> element.
-                </audio>
-              </Typography>
-            )}
-            {el.sourceUrl && (
-              <Typography
-                key={uuidv4()}
-                sx={{
-                  bgcolor: '#edeaea',
-                  borderRadius: '0.5rem',
-                  padding: '0.5rem'
-                }}
-              >
-                <Link key={uuidv4()} href={el.sourceUrl} underline="none">
-                  {el.sourceUrl}
-                </Link>
-              </Typography>
-            )}
-          </Box>
+          <div key={uuidv4()}>
+            <Box key={uuidv4()}>
+              {el.audio && (
+                <Typography
+                  key={uuidv4()}
+                  sx={{
+                    bgcolor: '#edeaea',
+                    borderRadius: '0.5rem',
+                    padding: '0.5rem'
+                  }}
+                >
+                  <audio key={uuidv4()} controls src={el.audio}>
+                    Your browser does not support the
+                    <code key={uuidv4()}>audio</code> element.
+                  </audio>
+                </Typography>
+              )}
+              {el.sourceUrl && (
+                <Typography
+                  key={uuidv4()}
+                  sx={{
+                    bgcolor: '#edeaea',
+                    borderRadius: '0.5rem',
+                    padding: '0.5rem'
+                  }}
+                >
+                  <Link key={uuidv4()} href={el.sourceUrl} underline="none">
+                    {el.sourceUrl}
+                  </Link>
+                </Typography>
+              )}
+            </Box>
+          </div>
         ))}
       </Box>
       <Box
@@ -157,7 +159,7 @@ const Result = () => {
           Meanings
         </Typography>
         {myWord.meanings?.map((el) => (
-          <>
+          <div key={uuidv4()}>
             <Typography
               key={uuidv4()}
               sx={{
@@ -168,7 +170,7 @@ const Result = () => {
             >
               {el.partOfSpeech}
             </Typography>
-          </>
+          </div>
         ))}
       </Box>
       <Box
@@ -187,9 +189,9 @@ const Result = () => {
           Definition
         </Typography>
         {myWord.meanings?.map((el) => (
-          <>
+          <div key={uuidv4()}>
             {el.definitions?.map((el) => (
-              <>
+              <div key={uuidv4()}>
                 <Typography
                   key={uuidv4()}
                   sx={{
@@ -214,9 +216,9 @@ const Result = () => {
                     {el.example}
                   </Typography>
                 )}
-              </>
+              </div>
             ))}
-          </>
+          </div>
         ))}
       </Box>
       <Box
@@ -235,9 +237,9 @@ const Result = () => {
           Synonyms
         </Typography>
         {myWord.meanings?.map((el) => (
-          <>
+          <div key={uuidv4()}>
             {el.definitions?.map((el) => (
-              <>
+              <div key={uuidv4()}>
                 {el.synonyms?.map((el) => (
                   <Typography
                     key={uuidv4()}
@@ -252,9 +254,9 @@ const Result = () => {
                     {el}
                   </Typography>
                 ))}
-              </>
+              </div>
             ))}
-          </>
+          </div>
         ))}
       </Box>
       <Box
@@ -311,18 +313,20 @@ const Result = () => {
           Wiki
         </Typography>
         {myWord.sourceUrls?.map((el) => (
-          <Typography
-            key={uuidv4()}
-            sx={{
-              bgcolor: '#edeaea',
-              borderRadius: '0.5rem',
-              padding: '0.5rem'
-            }}
-          >
-            <Link key={uuidv4()} href={el} underline="none">
-              {el}
-            </Link>
-          </Typography>
+          <div key={uuidv4()}>
+            <Typography
+              key={uuidv4()}
+              sx={{
+                bgcolor: '#edeaea',
+                borderRadius: '0.5rem',
+                padding: '0.5rem'
+              }}
+            >
+              <Link key={uuidv4()} href={el} underline="none">
+                {el}
+              </Link>
+            </Typography>
+          </div>
         ))}
       </Box>
     </div>

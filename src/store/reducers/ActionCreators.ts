@@ -9,8 +9,12 @@ export const fetchDictionary = createAsyncThunk(
     try {
       const response = await axios.get<IWord>(API + word)
       return response.data
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.message)
+    } catch (e) {
+      let message = 'Error'
+      if (e instanceof Error) {
+        message = e.message
+      }
+      return thunkAPI.rejectWithValue(message)
     }
   }
 )

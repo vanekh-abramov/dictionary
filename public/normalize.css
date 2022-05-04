@@ -4,3 +4,8 @@
   font-style: 16px;
   box-sizing: border-box;
 }
+
+#root {
+  max-width: 1440px;
+  margin: 0 auto;
+}

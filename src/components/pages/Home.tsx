@@ -1,33 +1,35 @@
 import { Input, Button } from '@mui/material'
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchDictionary } from '../../toolkitRedux/toolkitSlice'
-import s from './home.module.scss'
-import { ERROR_ROUTE } from '../../constants/routerLinks'
+import React, { useState, FC } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { fetchDictionary } from '../../store/reducers/ActionCreators'
+import { useAppDispatch } from '../../hooks/redux'
+import s from './home.module.scss'
+import { v4 as uuidv4 } from 'uuid'
 
-const Home = () => {
-  const [word, setWord] = useState('')
-  const { error } = useSelector((state) => state.data)
-  const dispatch = useDispatch()
+const Home: FC = () => {
+  const [word, setWord] = useState<string>('')
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const inputHandler = (e) => {
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWord(e.target.value)
   }
+
   const fetchVocabulary = () => {
     dispatch(fetchDictionary(word))
-    error ? navigate(ERROR_ROUTE) : navigate('/' + word)
+    navigate('/' + word)
   }
 
   return (
     <div className={s.container}>
       <Input
+        key={uuidv4()}
         placeholder="Enter word"
         autoFocus={true}
         value={word}
-        onChange={(e) => inputHandler(e)}
+        onChange={inputHandler}
       />
       <Button
+        key={uuidv4()}
         sx={{
           fontSize: '2rem',
           transition: 'all 0.5s linear',

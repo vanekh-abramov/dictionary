@@ -1,76 +1,69 @@
 import { Box, Link, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { ERROR_ROUTE } from '../../constants/routerLinks'
-import { fetchDictionary } from '../../toolkitRedux/toolkitSlice'
 import { v4 as uuidv4 } from 'uuid'
+import { ERROR_ROUTE } from '../../constants/routerLinks'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import { IWord } from '../../models/IWord'
+import { fetchDictionary } from '../../store/reducers/ActionCreators'
+import s from './result.module.scss'
+
+type wordParams = {
+  word: string | undefined;
+};
 
 const Result = () => {
-  const { data, status, error } = useSelector((state) => state.data)
-  const dispatch = useDispatch()
-  const naviagate = useNavigate()
-  const word = data[0] || {}
-  const params = useParams()
+  const { data, status, error } = useAppSelector((state) => state.data)
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const myWord: IWord = data[0] || {}
+  const { word } = useParams<wordParams>()
+
   useEffect(() => {
-    dispatch(fetchDictionary(params.word))
-    !error ?? naviagate(ERROR_ROUTE)
+    dispatch(fetchDictionary(word))
   }, [])
 
-  // useFetchWord(word)
+  if (error) {
+    navigate(ERROR_ROUTE)
+  }
 
   return (
-    <div>
-      {status === 'loading' && (
-        <Typography variant="h4" align="center" paragraph={true} color={'red'}>
+    <div className={s.container}>
+      {status && (
+        <Typography
+          key={uuidv4()}
+          variant="h4"
+          align="center"
+          paragraph={true}
+          color={'red'}
+        >
           Loading...
         </Typography>
       )}
-      {!error ?? naviagate(ERROR_ROUTE)}
       <Box
+        key={uuidv4()}
         sx={{
           bgcolor: 'background.paper',
           marginTop: '1rem',
           boxShadow: 1,
           borderRadius: 2,
           p: 2,
-          minWidth: '50vw'
+          minWidth: '50vw',
+          maxWidth: '1440px'
         }}
       >
-        <Typography variant="h4" align="center" paragraph={true}>
+        <Typography key={uuidv4()} variant="h4" align="center" paragraph={true}>
           Word
         </Typography>
         <Typography
+          key={uuidv4()}
           sx={{
             bgcolor: '#edeaea',
             borderRadius: '0.5rem',
             padding: '0.5rem'
           }}
         >
-          {word.word}
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          bgcolor: 'background.paper',
-          marginTop: '1rem',
-          boxShadow: 1,
-          borderRadius: 2,
-          p: 2,
-          minWidth: '50vw'
-        }}
-      >
-        <Typography variant="h4" align="center" paragraph={true}>
-          Phonetic
-        </Typography>
-        <Typography
-          sx={{
-            bgcolor: '#edeaea',
-            borderRadius: '0.5rem',
-            padding: '0.5rem'
-          }}
-        >
-          {word.phonetic}
+          {myWord.word}
         </Typography>
       </Box>
       <Box
@@ -81,37 +74,66 @@ const Result = () => {
           boxShadow: 1,
           borderRadius: 2,
           p: 2,
-          minWidth: '50vw'
+          minWidth: '50vw',
+          maxWidth: '1440px'
         }}
       >
-        <Typography variant="h4" align="center" paragraph={true}>
+        <Typography key={uuidv4()} variant="h4" align="center" paragraph={true}>
+          Phonetic
+        </Typography>
+        <Typography
+          key={uuidv4()}
+          sx={{
+            bgcolor: '#edeaea',
+            borderRadius: '0.5rem',
+            padding: '0.5rem'
+          }}
+        >
+          {myWord.phonetic}
+        </Typography>
+      </Box>
+      <Box
+        key={uuidv4()}
+        sx={{
+          bgcolor: 'background.paper',
+          marginTop: '1rem',
+          boxShadow: 1,
+          borderRadius: 2,
+          p: 2,
+          minWidth: '50vw',
+          maxWidth: '1440px'
+        }}
+      >
+        <Typography key={uuidv4()} variant="h4" align="center" paragraph={true}>
           Phonetics
         </Typography>
-        {word.phonetics?.map((el) => (
+        {myWord.phonetics?.map((el) => (
           <Box key={uuidv4()}>
             {el.audio && (
               <Typography
+                key={uuidv4()}
                 sx={{
                   bgcolor: '#edeaea',
                   borderRadius: '0.5rem',
                   padding: '0.5rem'
                 }}
               >
-                <audio controls src={el.audio}>
+                <audio key={uuidv4()} controls src={el.audio}>
                   Your browser does not support the
-                  <code>audio</code> element.
+                  <code key={uuidv4()}>audio</code> element.
                 </audio>
               </Typography>
             )}
             {el.sourceUrl && (
               <Typography
+                key={uuidv4()}
                 sx={{
                   bgcolor: '#edeaea',
                   borderRadius: '0.5rem',
                   padding: '0.5rem'
                 }}
               >
-                <Link href={el.sourceUrl} underline="none">
+                <Link key={uuidv4()} href={el.sourceUrl} underline="none">
                   {el.sourceUrl}
                 </Link>
               </Typography>
@@ -127,15 +149,17 @@ const Result = () => {
           boxShadow: 1,
           borderRadius: 2,
           p: 2,
-          minWidth: '50vw'
+          minWidth: '50vw',
+          maxWidth: '1440px'
         }}
       >
-        <Typography variant="h4" align="center" paragraph={true}>
+        <Typography key={uuidv4()} variant="h4" align="center" paragraph={true}>
           Meanings
         </Typography>
-        {word.meanings?.map((el) => (
+        {myWord.meanings?.map((el) => (
           <>
             <Typography
+              key={uuidv4()}
               sx={{
                 bgcolor: '#edeaea',
                 borderRadius: '0.5rem',
@@ -155,17 +179,19 @@ const Result = () => {
           boxShadow: 1,
           borderRadius: 2,
           p: 2,
-          minWidth: '50vw'
+          minWidth: '50vw',
+          maxWidth: '1440px'
         }}
       >
-        <Typography variant="h4" align="center" paragraph={true}>
+        <Typography key={uuidv4()} variant="h4" align="center" paragraph={true}>
           Definition
         </Typography>
-        {word.meanings?.map((el) => (
+        {myWord.meanings?.map((el) => (
           <>
             {el.definitions?.map((el) => (
               <>
                 <Typography
+                  key={uuidv4()}
                   sx={{
                     bgcolor: '#edeaea',
                     borderRadius: '0.5rem',
@@ -178,6 +204,7 @@ const Result = () => {
                 </Typography>
                 {el.example && (
                   <Typography
+                    key={uuidv4()}
                     sx={{
                       bgcolor: '#edeaea',
                       borderRadius: '0.5rem',
@@ -200,13 +227,14 @@ const Result = () => {
           boxShadow: 1,
           borderRadius: 2,
           p: 2,
-          minWidth: '50vw'
+          minWidth: '50vw',
+          maxWidth: '1440px'
         }}
       >
-        <Typography variant="h4" align="center" paragraph={true}>
+        <Typography key={uuidv4()} variant="h4" align="center" paragraph={true}>
           Synonyms
         </Typography>
-        {word.meanings?.map((el) => (
+        {myWord.meanings?.map((el) => (
           <>
             {el.definitions?.map((el) => (
               <>
@@ -221,7 +249,7 @@ const Result = () => {
                       color: '#d31919'
                     }}
                   >
-                    {el.id}
+                    {el}
                   </Typography>
                 ))}
               </>
@@ -230,53 +258,59 @@ const Result = () => {
         ))}
       </Box>
       <Box
+        key={uuidv4()}
         sx={{
           bgcolor: 'background.paper',
           marginTop: '1rem',
           boxShadow: 1,
           borderRadius: 2,
           p: 2,
-          minWidth: '90vw'
+          minWidth: '90vw',
+          maxWidth: '1440px'
         }}
       >
-        <Typography variant="h4" align="center" paragraph={true}>
+        <Typography key={uuidv4()} variant="h4" align="center" paragraph={true}>
           License
         </Typography>
         <Typography
+          key={uuidv4()}
           sx={{
             bgcolor: '#edeaea',
             borderRadius: '0.5rem',
             padding: '0.5rem'
           }}
         >
-          {word.license?.name}
+          {myWord.license?.name}
         </Typography>
         <Typography
+          key={uuidv4()}
           sx={{
             bgcolor: '#edeaea',
             borderRadius: '0.5rem',
             padding: '0.5rem'
           }}
         >
-          <Link href={word.license?.url} underline="none">
-            {word.license?.url}
+          <Link key={uuidv4()} href={myWord.license?.url} underline="none">
+            {myWord.license?.url}
           </Link>
         </Typography>
       </Box>
       <Box
+        key={uuidv4()}
         sx={{
           bgcolor: 'background.paper',
           marginTop: '1rem',
           boxShadow: 1,
           borderRadius: 2,
           p: 2,
-          minWidth: '90vw'
+          minWidth: '90vw',
+          maxWidth: '1440px'
         }}
       >
-        <Typography variant="h4" align="center" paragraph={true}>
+        <Typography key={uuidv4()} variant="h4" align="center" paragraph={true}>
           Wiki
         </Typography>
-        {word.sourceUrls?.map((el) => (
+        {myWord.sourceUrls?.map((el) => (
           <Typography
             key={uuidv4()}
             sx={{
@@ -285,7 +319,7 @@ const Result = () => {
               padding: '0.5rem'
             }}
           >
-            <Link href={el} underline="none">
+            <Link key={uuidv4()} href={el} underline="none">
               {el}
             </Link>
           </Typography>
